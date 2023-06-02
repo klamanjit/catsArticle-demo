@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+    <title>01-04</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- the circle button on top -->
+      <div class="circle-container">
+        <div class="circle">
+          <button class="btn btn-open">
+            <ion-icon name="list-outline" class="btn-open-icon"></ion-icon>
+          </button>
+          <button class="btn btn-close">
+            <ion-icon
+              name="play-back-outline"
+              class="btn-close-icon"
+            ></ion-icon>
+          </button>
+        </div>
+      </div>
+      <!-- The article -->
+      <div class="content">
+        <h1 class="heading">Amazing creatures</h1>
+        <p class="author">Kla Manjit</p>
+        <p class="heading-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
+          tempora accusantium atque, voluptatem minus debitis velit. Quod
+          repellendus sit non sunt, deserunt blanditiis, porro pariatur
+          veritatis placeat illum repellat. Officia?
+        </p>
+
+        <h3 class="imgs-heading">All Collections</h3>
+
+        <!-- The expanding card -->
+        <div class="imgs-container">
+          <div class="img img1"></div>
+          <div class="img img2"></div>
+          <div class="img img3"></div>
+          <div class="img img4"></div>
+          <div class="img img5"></div>
+        </div>
+        <!-- Progress bar -->
+        <section class="progress-section">
+          <div class="progress-container">
+            <div class="progress-bar"></div>
+            <div class="progress-circle">
+              <span class="progres-text">1</span>
+            </div>
+            <div class="progress-circle">
+              <span class="progres-text">2</span>
+            </div>
+            <div class="progress-circle">
+              <span class="progres-text">3</span>
+            </div>
+            <div class="progress-circle">
+              <span class="progres-text">4</span>
+            </div>
+            <div class="progress-circle">
+              <span class="progres-text">5</span>
+            </div>
+          </div>
+
+          <div class="container-progress-btn">
+            <button class="btn btn-prev">
+              <ion-icon
+                name="play-skip-back-outline"
+                class="btn-prev-icon"
+              ></ion-icon>
+            </button>
+            <button class="btn btn-next">
+              <ion-icon
+                name="play-skip-forward-outline"
+                class="btn-next-icon"
+              ></ion-icon>
+            </button>
+          </div>
+        </section>
+
+        <p class="main-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur,
+          officia, accusantium at animi laborum, debitis perferendis ducimus
+          magni omnis eligendi ad voluptatum quidem molestiae sed cumque?
+          Suscipit ex, modi mollitia facilis inventore asperiores numquam fugit
+          sint dolorum, debitis rem? Error minima earum quidem sint debitis sed
+          corrupti eos iure incidunt expedita quisquam quo illo veritatis, natus
+          neque ut architecto vitae? Quam, commodi? Illum nesciunt voluptatum
+          accusamus nostrum esse voluptatibus recusandae officiis saepe
+          perferendis. Impedit, placeat!
+        </p>
+      </div>
+    </div>
+
+    <section class="section-navigator">
+      <!-- navigator out of page -->
+      <nav>
+        <ul>
+          <li id="list1">
+            <ion-icon
+              name="home-outline"
+              class="nav-icon list-home-icon"
+            ></ion-icon
+            ><span class="li-text">Home</span>
+          </li>
+          <li id="list2">
+            <ion-icon
+              name="paw-outline"
+              class="nav-icon list-about-icon"
+            ></ion-icon
+            ><span class="li-text">About</span>
+          </li>
+          <li id="list3">
+            <ion-icon
+              name="people-outline"
+              class="nav-icon list-contact-icon"
+            ></ion-icon
+            ><span class="li-text">Contact</span>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Search-wedget -->
+      <form class="search-container">
+        <input type="text" class="search-bar" placeholder="Searching..." />
+        <button class="btn btn-search">
+          <ion-icon name="search-outline" class="search-icon"></ion-icon>
+        </button>
+      </form>
+    </section>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
