@@ -64,6 +64,12 @@ body {
   border: none;
   background: transparent;
   color: #fffbeb;
+  cursor: pointer;
+}
+
+.btn-open {
+  transform-origin: top left;
+  transform: rotate(0);
 }
 
 .btn-close {
@@ -239,9 +245,11 @@ body {
   gap: 2.4rem;
   transform: translateX(-200%);
   transition: transform 0.4s ease-in;
+}
 
+.section-navigator.show-nav {
   /* Show-nav */
-  /* transform: translate(0); */
+  transform: translate(0);
 }
 
 .nav-icon {
