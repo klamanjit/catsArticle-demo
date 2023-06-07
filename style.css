@@ -129,26 +129,31 @@ body {
   cursor: pointer;
   margin-bottom: 2rem;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+
+  transition: flex 0.5s ease;
 }
 
-.img1 {
-  background-image: url("imgs/img-01.jpg");
+.img.active {
   flex: 5;
 }
 
-.img2 {
+#img1 {
+  background-image: url("imgs/img-01.jpg");
+}
+
+#img2 {
   background-image: url("imgs/img-02.jpg");
 }
 
-.img3 {
+#img3 {
   background-image: url("imgs/img-03.jpg");
 }
 
-.img4 {
+#img4 {
   background-image: url("imgs/img-04.jpg");
 }
 
-.img5 {
+#img5 {
   background-image: url("imgs/img-05.jpg");
 }
 
@@ -183,7 +188,7 @@ body {
 .progress-bar {
   position: absolute;
   background-color: #d97706;
-  width: 25%;
+  width: 0%;
   height: 0.5rem;
   top: 50%;
   left: 0.5px;
@@ -219,7 +224,8 @@ body {
 .btn-next,
 .btn-prev {
   font-size: 2.4rem;
-  border: 3px solid #d97706;
+  border: none;
+
   background: transparent;
   background-color: #fffbeb;
   color: #451a03;
@@ -227,6 +233,11 @@ body {
   height: 5rem;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.btn-next:hover,
+.btn-prev:hover {
+  border: 3px solid #d97706;
 }
 
 .main-text {
@@ -237,8 +248,8 @@ body {
 /* Navigator */
 
 .section-navigator {
-  position: fixed;
-  bottom: 5rem;
+  position: absolute;
+  bottom: -20rem;
   left: 5rem;
   display: flex;
   flex-direction: column;
@@ -294,6 +305,10 @@ nav ul {
   transition: width 0.3s ease;
   background-color: #fffbeb;
   /* color: #92400e; */
+}
+
+.search-bar:focus {
+  outline: none;
 }
 
 .search-bar.active {
