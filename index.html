@@ -40,11 +40,11 @@
 
         <!-- The expanding card -->
         <div class="imgs-container">
-          <div class="img" id="img1"></div>
-          <div class="img" id="img2"></div>
-          <div class="img" id="img3"></div>
-          <div class="img" id="img4"></div>
-          <div class="img" id="img5"></div>
+          <div class="img" data-img="1" id="img1"></div>
+          <div class="img" data-img="2" id="img2"></div>
+          <div class="img" data-img="3" id="img3"></div>
+          <div class="img" data-img="4" id="img4"></div>
+          <div class="img" data-img="5" id="img5"></div>
         </div>
         <!-- Progress bar -->
         <section class="progress-section">
@@ -106,21 +106,21 @@
               name="home-outline"
               class="nav-icon list-home-icon"
             ></ion-icon
-            ><span class="li-text">Home</span>
+            ><a href="#" class="li-text" id="home">Home</a>
           </li>
           <li id="list2">
             <ion-icon
               name="paw-outline"
               class="nav-icon list-about-icon"
             ></ion-icon
-            ><span class="li-text">About</span>
+            ><a href="#" class="li-text" id="about">About</a>
           </li>
           <li id="list3">
             <ion-icon
               name="people-outline"
               class="nav-icon list-contact-icon"
             ></ion-icon
-            ><span class="li-text">Contact</span>
+            ><a href="#" class="li-text" id="contact">Contact</a>
           </li>
         </ul>
       </nav>
@@ -133,6 +133,8 @@
         </button>
       </form>
     </section>
+
+    <!-- section Login -->
 
     <script
       type="module"

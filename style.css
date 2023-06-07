@@ -288,6 +288,7 @@ nav ul {
   color: #fffbeb;
   margin-left: 1.2rem;
   text-transform: uppercase;
+  text-decoration: none;
 }
 
 .search-container {
