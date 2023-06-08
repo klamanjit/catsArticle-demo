@@ -15,6 +15,8 @@ class Cat {
   progressCicles: NodeListOf<Element>;
   btnNext: HTMLButtonElement;
   btnPrev: HTMLButtonElement;
+  // section-register
+  registerContainer: HTMLDivElement;
 
   numOfImg: number = 0;
 
@@ -45,13 +47,18 @@ class Cat {
     this.progressCicles = document.querySelectorAll(".progress-circle")!;
     this.btnNext = document.querySelector(".btn-next")! as HTMLButtonElement;
     this.btnPrev = document.querySelector(".btn-prev")! as HTMLButtonElement;
+    this.registerContainer = document.querySelector(
+      ".register-container"
+    )! as HTMLDivElement;
 
     // active nav btns
     this.openNavOnBtn();
     this.closeNavOnBtn();
 
-    // activate about link
-    this.activeAboutLink();
+    // activate home,abot.contact links
+    this.activeHomeLink();
+    this.activateAboutLink();
+    this.closeRegisterOnBtn();
     // active search bar
     this.toggleSearchBar();
 
@@ -88,6 +95,10 @@ class Cat {
     this.btnOpenNav.style.transform = `rotate(0)`;
   }
 
+  private closeRegisterSection() {
+    this.registerContainer.style.display = `none`;
+  }
+
   private openNavOnBtn() {
     this.btnOpenNav.addEventListener("click", this.openNav.bind(this));
   }
@@ -96,10 +107,29 @@ class Cat {
     this.btnCloseNav.addEventListener("click", this.closeNav.bind(this));
   }
 
-  private activeAboutLink() {
-    document.getElementById("about")!.addEventListener("click", () => {
+  private closeRegisterOnBtn() {
+    document
+      .querySelector(".regis-close-btn")!
+      .addEventListener("click", this.closeRegisterSection.bind(this));
+  }
+
+  private activeHomeLink() {
+    document.getElementById("home")!.addEventListener("click", () => {
       this.closeNav();
       this.containerDiv.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
+  private activateAboutLink() {
+    document.getElementById("about")!.addEventListener("click", () => {
+      this.closeNav();
+
+      this.registerContainer.style.display = `flex`;
+      document.querySelector(".form-container")!.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "end",
+      });
     });
   }
 

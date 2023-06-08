@@ -14,11 +14,14 @@ var Cat = /** @class */ (function () {
         this.progressCicles = document.querySelectorAll(".progress-circle");
         this.btnNext = document.querySelector(".btn-next");
         this.btnPrev = document.querySelector(".btn-prev");
+        this.registerContainer = document.querySelector(".register-container");
         // active nav btns
         this.openNavOnBtn();
         this.closeNavOnBtn();
-        // activate about link
-        this.activeAboutLink();
+        // activate home,abot.contact links
+        this.activeHomeLink();
+        this.activateAboutLink();
+        this.closeRegisterOnBtn();
         // active search bar
         this.toggleSearchBar();
         // activate imgs expandion
@@ -47,17 +50,37 @@ var Cat = /** @class */ (function () {
         this.btnCloseNav.style.transform = "rotate(90deg)";
         this.btnOpenNav.style.transform = "rotate(0)";
     };
+    Cat.prototype.closeRegisterSection = function () {
+        this.registerContainer.style.display = "none";
+    };
     Cat.prototype.openNavOnBtn = function () {
         this.btnOpenNav.addEventListener("click", this.openNav.bind(this));
     };
     Cat.prototype.closeNavOnBtn = function () {
         this.btnCloseNav.addEventListener("click", this.closeNav.bind(this));
     };
-    Cat.prototype.activeAboutLink = function () {
+    Cat.prototype.closeRegisterOnBtn = function () {
+        document
+            .querySelector(".regis-close-btn")
+            .addEventListener("click", this.closeRegisterSection.bind(this));
+    };
+    Cat.prototype.activeHomeLink = function () {
+        var _this = this;
+        document.getElementById("home").addEventListener("click", function () {
+            _this.closeNav();
+            _this.containerDiv.scrollIntoView({ behavior: "smooth" });
+        });
+    };
+    Cat.prototype.activateAboutLink = function () {
         var _this = this;
         document.getElementById("about").addEventListener("click", function () {
             _this.closeNav();
-            _this.containerDiv.scrollIntoView({ behavior: "smooth" });
+            _this.registerContainer.style.display = "flex";
+            document.querySelector(".form-container").scrollIntoView({
+                behavior: "smooth",
+                block: "end",
+                inline: "end",
+            });
         });
     };
     Cat.prototype.toggleSearchBar = function () {
