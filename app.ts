@@ -17,6 +17,8 @@ class Cat {
   btnPrev: HTMLButtonElement;
   // section-register
   registerContainer: HTMLDivElement;
+  // section-footer
+  footerSection: HTMLDivElement;
 
   numOfImg: number = 0;
 
@@ -50,6 +52,9 @@ class Cat {
     this.registerContainer = document.querySelector(
       ".register-container"
     )! as HTMLDivElement;
+    this.footerSection = document.querySelector(
+      ".section-footer"
+    )! as HTMLDivElement;
 
     // active nav btns
     this.openNavOnBtn();
@@ -59,6 +64,8 @@ class Cat {
     this.activeHomeLink();
     this.activateAboutLink();
     this.closeRegisterOnBtn();
+    this.activateContactLink();
+    this.closeFooterOnBtn();
     // active search bar
     this.toggleSearchBar();
 
@@ -99,6 +106,10 @@ class Cat {
     this.registerContainer.style.display = `none`;
   }
 
+  private closeFooterSection() {
+    this.footerSection.style.display = "none";
+  }
+
   private openNavOnBtn() {
     this.btnOpenNav.addEventListener("click", this.openNav.bind(this));
   }
@@ -111,6 +122,12 @@ class Cat {
     document
       .querySelector(".regis-close-btn")!
       .addEventListener("click", this.closeRegisterSection.bind(this));
+  }
+
+  private closeFooterOnBtn() {
+    document
+      .querySelector(".footer-close-btn")!
+      .addEventListener("click", this.closeFooterSection.bind(this));
   }
 
   private activeHomeLink() {
@@ -130,6 +147,16 @@ class Cat {
         block: "end",
         inline: "end",
       });
+    });
+  }
+
+  private activateContactLink() {
+    document.getElementById("contact")!.addEventListener("click", () => {
+      this.closeNav();
+      this.footerSection.style.display = `block`;
+      document
+        .querySelector(".footer-container")!
+        .scrollIntoView({ behavior: "smooth" });
     });
   }
 

@@ -15,6 +15,7 @@ var Cat = /** @class */ (function () {
         this.btnNext = document.querySelector(".btn-next");
         this.btnPrev = document.querySelector(".btn-prev");
         this.registerContainer = document.querySelector(".register-container");
+        this.footerSection = document.querySelector(".section-footer");
         // active nav btns
         this.openNavOnBtn();
         this.closeNavOnBtn();
@@ -22,6 +23,8 @@ var Cat = /** @class */ (function () {
         this.activeHomeLink();
         this.activateAboutLink();
         this.closeRegisterOnBtn();
+        this.activateContactLink();
+        this.closeFooterOnBtn();
         // active search bar
         this.toggleSearchBar();
         // activate imgs expandion
@@ -53,6 +56,9 @@ var Cat = /** @class */ (function () {
     Cat.prototype.closeRegisterSection = function () {
         this.registerContainer.style.display = "none";
     };
+    Cat.prototype.closeFooterSection = function () {
+        this.footerSection.style.display = "none";
+    };
     Cat.prototype.openNavOnBtn = function () {
         this.btnOpenNav.addEventListener("click", this.openNav.bind(this));
     };
@@ -63,6 +69,11 @@ var Cat = /** @class */ (function () {
         document
             .querySelector(".regis-close-btn")
             .addEventListener("click", this.closeRegisterSection.bind(this));
+    };
+    Cat.prototype.closeFooterOnBtn = function () {
+        document
+            .querySelector(".footer-close-btn")
+            .addEventListener("click", this.closeFooterSection.bind(this));
     };
     Cat.prototype.activeHomeLink = function () {
         var _this = this;
@@ -81,6 +92,16 @@ var Cat = /** @class */ (function () {
                 block: "end",
                 inline: "end",
             });
+        });
+    };
+    Cat.prototype.activateContactLink = function () {
+        var _this = this;
+        document.getElementById("contact").addEventListener("click", function () {
+            _this.closeNav();
+            _this.footerSection.style.display = "block";
+            document
+                .querySelector(".footer-container")
+                .scrollIntoView({ behavior: "smooth" });
         });
     };
     Cat.prototype.toggleSearchBar = function () {

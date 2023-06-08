@@ -489,7 +489,7 @@ nav ul {
   left: 0;
   z-index: 3;
 
-  /* display: none; */
+  display: none;
 }
 
 .footer-container {
@@ -547,14 +547,14 @@ nav ul {
   height: 4.8rem;
   border-radius: 50%;
   border: none;
-  background: linear-gradient(45deg, #f59e0b, #d97706);
-  color: #ffedd5;
+  background: linear-gradient(to bottom right, #fffbeb, #fef3c7);
+  color: #451a03;
   cursor: pointer;
   z-index: 5;
 }
 
 .footer-close-btn:hover {
-  background: #ffedd5;
-  color: #451a03;
+  background: linear-gradient(45deg, #f59e0b, #d97706);
+  color: #ffedd5;
   border: 1px solid #451a03;
 }
