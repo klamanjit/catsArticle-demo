@@ -362,7 +362,10 @@ nav ul {
 }
 
 .form-container {
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   padding: 2.5rem 3rem;
@@ -512,18 +515,39 @@ nav ul {
 }
 
 .footer-btn {
-  font-size: 5.4rem;
+  font-size: 8rem;
   text-decoration: none;
   color: #ffedd5;
+  /* width: 9rem;
+  height: 9rem; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.7rem;
+  cursor: default;
 }
 
-.footer-btn span {
+.contacts-icon {
+  cursor: pointer;
+}
+
+.contact-text {
+  display: none;
   font-size: 1.6rem;
+  color: #fef3c7;
+}
+
+#email {
+  justify-self: center;
+}
+
+#instagram {
+  justify-self: center;
+}
+
+#facebook {
+  justify-self: center;
 }
 
 #github {

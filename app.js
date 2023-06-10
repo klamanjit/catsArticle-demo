@@ -1,3 +1,7 @@
+function Autobind(_, _2, descriptor) {
+    // const orinalMethod = descriptor.value;
+    console.log(descriptor);
+}
 var Cat = /** @class */ (function () {
     function Cat() {
         this.numOfImg = 0;
@@ -16,6 +20,9 @@ var Cat = /** @class */ (function () {
         this.btnPrev = document.querySelector(".btn-prev");
         this.registerContainer = document.querySelector(".register-container");
         this.footerSection = document.querySelector(".section-footer");
+        this.usernameEl = document.getElementById("user-name");
+        this.rateEl = document.getElementById("rate");
+        this.descriptionEl = document.getElementById("description");
         // active nav btns
         this.openNavOnBtn();
         this.closeNavOnBtn();
@@ -25,8 +32,11 @@ var Cat = /** @class */ (function () {
         this.closeRegisterOnBtn();
         this.activateContactLink();
         this.closeFooterOnBtn();
+        this.showContactInfo();
         // active search bar
         this.toggleSearchBar();
+        // activate submitBtn
+        this.activateSubmitBtn();
         // activate imgs expandion
         // this.expandingImgOnclick();
         //Progression bar
@@ -78,6 +88,8 @@ var Cat = /** @class */ (function () {
     Cat.prototype.activeHomeLink = function () {
         var _this = this;
         document.getElementById("home").addEventListener("click", function () {
+            _this.closeFooterSection();
+            _this.closeRegisterSection();
             _this.closeNav();
             _this.containerDiv.scrollIntoView({ behavior: "smooth" });
         });
@@ -85,6 +97,7 @@ var Cat = /** @class */ (function () {
     Cat.prototype.activateAboutLink = function () {
         var _this = this;
         document.getElementById("about").addEventListener("click", function () {
+            _this.closeFooterSection();
             _this.closeNav();
             _this.registerContainer.style.display = "flex";
             document.querySelector(".form-container").scrollIntoView({
@@ -94,14 +107,94 @@ var Cat = /** @class */ (function () {
             });
         });
     };
+    Cat.prototype.clearRegisInputs = function () {
+        this.usernameEl.value = "";
+        this.rateEl.value = "";
+        this.descriptionEl.value = "";
+    };
+    Cat.prototype.isValided = function (validateObj) {
+        var isValid = true;
+        if (validateObj.required) {
+            isValid = isValid && validateObj.value.toString().trim().length !== 0;
+        }
+        if (validateObj.minLength != null &&
+            typeof validateObj.value === "string") {
+            isValid = isValid && validateObj.value.length >= validateObj.minLength;
+        }
+        if (validateObj.min != null && typeof validateObj.value === "number") {
+            isValid = isValid && validateObj.value >= validateObj.min;
+        }
+        if (validateObj.max != null && typeof validateObj.value === "number") {
+            isValid = isValid && validateObj.value <= validateObj.max;
+        }
+        return isValid;
+    };
+    Cat.prototype.gatherRegisterInfo = function () {
+        var usernameInfo = this.usernameEl.value;
+        var rateInfo = this.rateEl.value;
+        var descriptionInfo = this.descriptionEl.value;
+        var validedUserNane = {
+            value: usernameInfo,
+            required: true,
+        };
+        var validRate = {
+            value: +rateInfo,
+            required: true,
+            min: 1,
+            max: 10,
+        };
+        var validDescription = {
+            value: descriptionInfo,
+            required: true,
+            minLength: 5,
+        };
+        if (this.isValided(validedUserNane) &&
+            this.isValided(validRate) &&
+            this.isValided(validDescription)) {
+            console.log([usernameInfo, rateInfo, descriptionInfo]);
+        }
+        else {
+            alert("The inputs is not valid, Please try again \uD83D\uDE05");
+            this.clearRegisInputs();
+        }
+    };
+    Cat.prototype.activateSubmitBtn = function () {
+        var _this = this;
+        document
+            .querySelector(".regis-submit-btn")
+            .addEventListener("click", function (e) {
+            e.preventDefault();
+            _this.gatherRegisterInfo();
+            _this.clearRegisInputs();
+        });
+    };
     Cat.prototype.activateContactLink = function () {
         var _this = this;
         document.getElementById("contact").addEventListener("click", function () {
+            _this.closeRegisterSection();
             _this.closeNav();
             _this.footerSection.style.display = "block";
             document
                 .querySelector(".footer-container")
                 .scrollIntoView({ behavior: "smooth" });
+        });
+    };
+    Cat.prototype.showContactInfo = function () {
+        document
+            .querySelector(".footer-container")
+            .addEventListener("mouseover", function (e) {
+            // console.log(e.target);
+            var iconTarget = e.target.classList.contains("contacts-icon");
+            if (iconTarget) {
+                document.querySelectorAll(".contact-text").forEach(function (text) {
+                    text.style.display = "block";
+                });
+            }
+            else {
+                document.querySelectorAll(".contact-text").forEach(function (text) {
+                    text.style.display = "none";
+                });
+            }
         });
     };
     Cat.prototype.toggleSearchBar = function () {
@@ -180,4 +273,3 @@ var Cat = /** @class */ (function () {
     return Cat;
 }());
 var cat1 = new Cat();
-console.log(cat1.numOfImg);

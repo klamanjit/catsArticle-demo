@@ -141,7 +141,16 @@
         <label for="user-name">User Name:</label>
         <input type="text" placeholder="KuroCat" id="user-name" />
         <label for="rate">Please rate how cute those cats are!</label>
-        <input type="number" id="rate" placeholder="10" />
+        <input
+          type="number"
+          id="rate"
+          placeholder="10"
+          step="1"
+          ,
+          min="0"
+          ,
+          max="10"
+        />
         <label for="description">Describe how you feel:</label>
         <textarea
           name="description"
@@ -161,30 +170,33 @@
     <section class="section-footer">
       <div class="footer-container">
         <a class="footer-btn" id="email" href="#"
-          ><ion-icon name="mail-outline"></ion-icon
-          ><span>manjit.wasit@gmail.com</span></a
+          ><ion-icon class="contacts-icon" name="mail-outline"></ion-icon
+          ><span class="contact-text">manjit.wasit@gmail.com</span></a
         >
         <a
           class="footer-btn"
           id="instagram"
           href="https://www.instagram.com/wasit.kla/"
-          ><ion-icon name="logo-instagram"></ion-icon><span>wasit.kla</span></a
+          ><ion-icon class="contacts-icon" name="logo-instagram"></ion-icon
+          ><span class="contact-text">wasit.kla</span></a
         >
         <a
           class="footer-btn"
           id="facebook"
           href="https://www.facebook.com/wasit.manjit/"
-          ><ion-icon name="logo-facebook"></ion-icon
-          ><span>Wasit Manjit</span></a
+          ><ion-icon class="contacts-icon" name="logo-facebook"></ion-icon
+          ><span class="contact-text">Wasit Manjit</span></a
         >
         <a class="footer-btn" id="github" href="https://github.com/klamanjit"
-          ><ion-icon name="logo-github"></ion-icon><span>klamanjit</span></a
+          ><ion-icon class="contacts-icon" name="logo-github"></ion-icon
+          ><span class="contact-text">klamanjit</span></a
         >
         <a
           class="footer-btn"
           id="youtube"
           href="https://www.youtube.com/channel/UCT1iC8NPgSUngtrSubhGN8g"
-          ><ion-icon name="logo-youtube"></ion-icon><span>Kuro_0w</span></a
+          ><ion-icon class="contacts-icon" name="logo-youtube"></ion-icon
+          ><span class="contact-text">Kuro_0w</span></a
         >
 
         <button class="footer-close-btn">
@@ -192,6 +204,8 @@
         </button>
       </div>
     </section>
+
+    <section class="section-hall-of-frame"></section>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
