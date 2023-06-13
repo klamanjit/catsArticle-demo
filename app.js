@@ -4,6 +4,7 @@ function Autobind(_, _2, descriptor) {
 }
 var Cat = /** @class */ (function () {
     function Cat() {
+        this.userProjects = [];
         this.numOfImg = 0;
         // selection properties
         this.btnOpenNav = document.querySelector(".btn-open");
@@ -23,6 +24,10 @@ var Cat = /** @class */ (function () {
         this.usernameEl = document.getElementById("user-name");
         this.rateEl = document.getElementById("rate");
         this.descriptionEl = document.getElementById("description");
+        this.hallOfFlameSection = document.querySelector(".section-hall-of-flame");
+        this.hallOfFlameBtn = document.querySelector(".hall-of-flame-btn");
+        this.cardInsertEl = document.getElementById("card-insert");
+        this.mainTextEls = document.querySelectorAll(".main-text");
         // active nav btns
         this.openNavOnBtn();
         this.closeNavOnBtn();
@@ -37,6 +42,8 @@ var Cat = /** @class */ (function () {
         this.toggleSearchBar();
         // activate submitBtn
         this.activateSubmitBtn();
+        // activate hall of flame
+        this.toggleHallOfFlameOnBtn();
         // activate imgs expandion
         // this.expandingImgOnclick();
         //Progression bar
@@ -131,7 +138,7 @@ var Cat = /** @class */ (function () {
     };
     Cat.prototype.gatherRegisterInfo = function () {
         var usernameInfo = this.usernameEl.value;
-        var rateInfo = this.rateEl.value;
+        var rateInfo = +this.rateEl.value;
         var descriptionInfo = this.descriptionEl.value;
         var validedUserNane = {
             value: usernameInfo,
@@ -151,11 +158,28 @@ var Cat = /** @class */ (function () {
         if (this.isValided(validedUserNane) &&
             this.isValided(validRate) &&
             this.isValided(validDescription)) {
-            console.log([usernameInfo, rateInfo, descriptionInfo]);
+            var userInfo = {
+                userName: usernameInfo,
+                rate: rateInfo,
+                description: descriptionInfo,
+            };
+            console.log(userInfo);
+            this.userProjects.push(userInfo);
+            return userInfo;
         }
         else {
-            alert("The inputs is not valid, Please try again \uD83D\uDE05");
+            // alert(`The inputs is not valid, Please try again 😅`);
             this.clearRegisInputs();
+        }
+    };
+    Cat.prototype.showCardInsert = function () {
+        var _this = this;
+        this.cardInsertEl.innerHTML = "";
+        if (this.userProjects) {
+            this.userProjects.forEach(function (user) {
+                var html = "\n        <div class=\"card-container\">\n      <ul>\n            <li class=\"card-user-name\">\n              <ion-icon name=\"logo-octocat\"></ion-icon>\n              <span class=\"card-text\">".concat(user.userName, "</span>\n            </li>\n            <li class=\"card-rate\">\n              <ion-icon name=\"star-half-outline\"></ion-icon>\n              <span class=\"card-text\">").concat(user.rate, "</span>\n            </li>\n          </ul>\n          <div class=\"card-description\">\n            <ion-icon name=\"chatbubble-ellipses-outline\"></ion-icon\n            ><span class=\"card-text\">").concat(user.description, "</span>\n          </div>\n        </div>\n      ");
+                _this.cardInsertEl.insertAdjacentHTML("beforeend", html);
+            });
         }
     };
     Cat.prototype.activateSubmitBtn = function () {
@@ -164,9 +188,22 @@ var Cat = /** @class */ (function () {
             .querySelector(".regis-submit-btn")
             .addEventListener("click", function (e) {
             e.preventDefault();
-            _this.gatherRegisterInfo();
-            _this.clearRegisInputs();
+            if (_this.gatherRegisterInfo()) {
+                _this.clearRegisInputs();
+                _this.closeRegisterSection();
+                _this.toogleHallOFFlame();
+                _this.showCardInsert();
+            }
+            else {
+                alert("Please check the inputs!");
+            }
         });
+    };
+    Cat.prototype.toogleHallOFFlame = function () {
+        this.hallOfFlameSection.classList.toggle("active");
+    };
+    Cat.prototype.toggleHallOfFlameOnBtn = function () {
+        this.hallOfFlameBtn.addEventListener("click", this.toogleHallOFFlame.bind(this));
     };
     Cat.prototype.activateContactLink = function () {
         var _this = this;
@@ -205,6 +242,7 @@ var Cat = /** @class */ (function () {
             _this.searchBarEl.focus();
         });
     };
+    // // close
     // private removeActiveClassOnImgs() {
     //   this.imagsEl.forEach((img) => {
     //     (img as HTMLDivElement).classList.remove("active");
@@ -216,18 +254,36 @@ var Cat = /** @class */ (function () {
     //       this.removeActiveClassOnImgs();
     //       img.classList.toggle("active");
     //       let targetImg = +(e.target as HTMLDivElement).dataset.img!;
-    //       this.numOfImg = targetImg;
-    //       this.upProgressionBar(this.numOfImg);
-    //       this.downProgressionBar(this.numOfImg);
-    //       return this.numOfImg;
+    //       let numOfImgNextBtn = this.upProgression();
+    //       let numOfImgPrevBtn = this.downProgression();
+    //       console.log(numOfImgPrevBtn, numOfImgNextBtn);
+    //       if (targetImg === numOfImgNextBtn) {
+    //         targetImg = numOfImgNextBtn;
+    //       }
+    //       if (targetImg === numOfImgPrevBtn) {
+    //         targetImg = numOfImgPrevBtn;
+    //       }
+    //       this.upProgressionBar(targetImg);
+    //       this.downProgressionBar(targetImg);
+    //       return targetImg;
     //     });
     //   });
     // }
+    // // clisae
     Cat.prototype.expandingImgOnbtn = function (numImg) {
         document.getElementById("img".concat(numImg)).style.flex = "5";
     };
     Cat.prototype.downSizeImg = function (numIng) {
         document.getElementById("img".concat(numIng)).style.flex = "0.5";
+    };
+    Cat.prototype.activateMainTextContent = function (numImg) {
+        this.mainTextEls.forEach(function (text, i) {
+            text.classList.remove("active");
+            if (i === numImg) {
+                var targetText = document.getElementById("main-text-".concat(numImg));
+                targetText.classList.add("active");
+            }
+        });
     };
     Cat.prototype.upProgressionBar = function (numImg) {
         this.progressBar.style.width = "".concat((numImg - 1) * 25, "%");
@@ -243,32 +299,40 @@ var Cat = /** @class */ (function () {
         this.numOfImg++;
         if (this.numOfImg > this.imagsEl.length) {
             this.numOfImg = this.imagsEl.length;
-            return this.numOfImg;
+            // return this.numOfImg;
         }
         this.numOfImg !== 1
             ? this.downSizeImg(this.numOfImg - 1)
-            : this.expandingImgOnbtn((this.numOfImg = 1));
+            : this.expandingImgOnbtn(1);
         this.expandingImgOnbtn(this.numOfImg);
         this.upProgressionBar(this.numOfImg);
+        this.activateMainTextContent(this.numOfImg);
+        // console.log(this.numOfImg);
         return this.numOfImg;
     };
     Cat.prototype.downProgression = function () {
         this.numOfImg--;
         if (this.numOfImg < 0) {
             this.numOfImg = 0;
-            return this.numOfImg;
         }
         this.numOfImg !== 5
             ? this.downSizeImg(this.numOfImg + 1)
-            : this.expandingImgOnbtn((this.numOfImg = 5));
-        this.expandingImgOnbtn(this.numOfImg === 0 ? 1 : this.numOfImg);
+            : this.expandingImgOnbtn(5);
+        if (this.numOfImg === 0) {
+            this.expandingImgOnbtn(1);
+            this.downSizeImg(1);
+        }
+        else {
+            this.expandingImgOnbtn(this.numOfImg);
+        }
+        // console.log(this.numOfImg);
         this.downProgressionBar(this.numOfImg);
+        this.activateMainTextContent(this.numOfImg);
         return this.numOfImg;
     };
     Cat.prototype.adjustProgressionBar = function () {
         this.btnNext.addEventListener("click", this.upProgression.bind(this));
         this.btnPrev.addEventListener("click", this.downProgression.bind(this));
-        return this.numOfImg;
     };
     return Cat;
 }());

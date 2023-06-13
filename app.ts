@@ -6,6 +6,12 @@ interface Validable {
   max?: number;
 }
 
+interface UserInfo {
+  userName: string;
+  rate: number;
+  description: string;
+}
+
 function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
   // const orinalMethod = descriptor.value;
   console.log(descriptor);
@@ -35,6 +41,14 @@ class Cat {
   descriptionEl: HTMLTextAreaElement;
   // section-footer
   footerSection: HTMLDivElement;
+  // section hall of flame
+  hallOfFlameSection: HTMLDivElement;
+  hallOfFlameBtn: HTMLButtonElement;
+  cardInsertEl: HTMLDivElement;
+  userProjects: UserInfo[] = [];
+
+  // Content
+  mainTextEls: NodeListOf<Element>;
 
   numOfImg: number = 0;
 
@@ -76,6 +90,18 @@ class Cat {
     this.descriptionEl = document.getElementById(
       "description"
     )! as HTMLTextAreaElement;
+    this.hallOfFlameSection = document.querySelector(
+      ".section-hall-of-flame"
+    )! as HTMLDivElement;
+    this.hallOfFlameBtn = document.querySelector(
+      ".hall-of-flame-btn"
+    )! as HTMLButtonElement;
+    this.cardInsertEl = document.getElementById(
+      "card-insert"
+    )! as HTMLDivElement;
+    this.mainTextEls = document.querySelectorAll(
+      ".main-text"
+    )! as NodeListOf<Element>;
 
     // active nav btns
     this.openNavOnBtn();
@@ -92,6 +118,8 @@ class Cat {
     this.toggleSearchBar();
     // activate submitBtn
     this.activateSubmitBtn();
+    // activate hall of flame
+    this.toggleHallOfFlameOnBtn();
 
     // activate imgs expandion
     // this.expandingImgOnclick();
@@ -208,9 +236,9 @@ class Cat {
     return isValid;
   }
 
-  private gatherRegisterInfo() {
+  private gatherRegisterInfo(): UserInfo | any {
     const usernameInfo = this.usernameEl.value;
-    const rateInfo = this.rateEl.value;
+    const rateInfo = +this.rateEl.value;
     const descriptionInfo = this.descriptionEl.value;
 
     const validedUserNane: Validable = {
@@ -236,10 +264,45 @@ class Cat {
       this.isValided(validRate) &&
       this.isValided(validDescription)
     ) {
-      console.log([usernameInfo, rateInfo, descriptionInfo]);
+      const userInfo: UserInfo = {
+        userName: usernameInfo,
+        rate: rateInfo,
+        description: descriptionInfo,
+      };
+      console.log(userInfo);
+      this.userProjects.push(userInfo);
+      return userInfo;
     } else {
-      alert(`The inputs is not valid, Please try again 😅`);
+      // alert(`The inputs is not valid, Please try again 😅`);
       this.clearRegisInputs();
+    }
+  }
+
+  private showCardInsert() {
+    this.cardInsertEl.innerHTML = ``;
+    if (this.userProjects) {
+      this.userProjects.forEach((user) => {
+        const html = `
+        <div class="card-container">
+      <ul>
+            <li class="card-user-name">
+              <ion-icon name="logo-octocat"></ion-icon>
+              <span class="card-text">${user.userName}</span>
+            </li>
+            <li class="card-rate">
+              <ion-icon name="star-half-outline"></ion-icon>
+              <span class="card-text">${user.rate}</span>
+            </li>
+          </ul>
+          <div class="card-description">
+            <ion-icon name="chatbubble-ellipses-outline"></ion-icon
+            ><span class="card-text">${user.description}</span>
+          </div>
+        </div>
+      `;
+
+        this.cardInsertEl.insertAdjacentHTML("beforeend", html);
+      });
     }
   }
 
@@ -248,9 +311,27 @@ class Cat {
       .querySelector(".regis-submit-btn")!
       .addEventListener("click", (e: Event) => {
         e.preventDefault();
-        this.gatherRegisterInfo();
-        this.clearRegisInputs();
+        if (this.gatherRegisterInfo()) {
+          this.clearRegisInputs();
+          this.closeRegisterSection();
+          this.toogleHallOFFlame();
+
+          this.showCardInsert();
+        } else {
+          alert(`Please check the inputs!`);
+        }
       });
+  }
+
+  private toogleHallOFFlame() {
+    this.hallOfFlameSection.classList.toggle("active");
+  }
+
+  private toggleHallOfFlameOnBtn() {
+    this.hallOfFlameBtn.addEventListener(
+      "click",
+      this.toogleHallOFFlame.bind(this)
+    );
   }
 
   private activateContactLink() {
@@ -294,7 +375,7 @@ class Cat {
       this.searchBarEl.focus();
     });
   }
-
+  // // close
   // private removeActiveClassOnImgs() {
   //   this.imagsEl.forEach((img) => {
   //     (img as HTMLDivElement).classList.remove("active");
@@ -308,15 +389,27 @@ class Cat {
   //       img.classList.toggle("active");
 
   //       let targetImg = +(e.target as HTMLDivElement).dataset.img!;
-  //       this.numOfImg = targetImg;
+  //       let numOfImgNextBtn = this.upProgression();
 
-  //       this.upProgressionBar(this.numOfImg);
-  //       this.downProgressionBar(this.numOfImg);
+  //       let numOfImgPrevBtn = this.downProgression();
+  //       console.log(numOfImgPrevBtn, numOfImgNextBtn);
 
-  //       return this.numOfImg;
+  //       if (targetImg === numOfImgNextBtn) {
+  //         targetImg = numOfImgNextBtn;
+  //       }
+
+  //       if (targetImg === numOfImgPrevBtn) {
+  //         targetImg = numOfImgPrevBtn;
+  //       }
+
+  //       this.upProgressionBar(targetImg);
+  //       this.downProgressionBar(targetImg);
+
+  //       return targetImg;
   //     });
   //   });
   // }
+  // // clisae
 
   private expandingImgOnbtn(numImg: number) {
     document.getElementById(`img${numImg}`)!.style.flex = `5`;
@@ -324,6 +417,17 @@ class Cat {
 
   private downSizeImg(numIng: number) {
     document.getElementById(`img${numIng}`)!.style.flex = `0.5`;
+  }
+
+  private activateMainTextContent(numImg: number) {
+    this.mainTextEls.forEach((text, i) => {
+      (text as HTMLParagraphElement).classList.remove("active");
+
+      if (i === numImg) {
+        const targetText = document.getElementById(`main-text-${numImg}`)!;
+        targetText.classList.add("active");
+      }
+    });
   }
 
   private upProgressionBar(numImg: number) {
@@ -340,39 +444,47 @@ class Cat {
     circle.style.borderColor = "#e0e0e0";
   }
 
-  private upProgression(): any {
+  private upProgression(): number {
     this.numOfImg++;
 
     if (this.numOfImg > this.imagsEl.length) {
       this.numOfImg = this.imagsEl.length;
-      return this.numOfImg;
+      // return this.numOfImg;
     }
     this.numOfImg !== 1
       ? this.downSizeImg(this.numOfImg - 1)
-      : this.expandingImgOnbtn((this.numOfImg = 1));
+      : this.expandingImgOnbtn(1);
 
     this.expandingImgOnbtn(this.numOfImg);
-
     this.upProgressionBar(this.numOfImg);
 
+    this.activateMainTextContent(this.numOfImg);
+
+    // console.log(this.numOfImg);
     return this.numOfImg;
   }
 
-  private downProgression(): any {
+  private downProgression(): number {
     this.numOfImg--;
 
     if (this.numOfImg < 0) {
       this.numOfImg = 0;
-      return this.numOfImg;
     }
 
     this.numOfImg !== 5
       ? this.downSizeImg(this.numOfImg + 1)
-      : this.expandingImgOnbtn((this.numOfImg = 5));
+      : this.expandingImgOnbtn(5);
 
-    this.expandingImgOnbtn(this.numOfImg === 0 ? 1 : this.numOfImg);
+    if (this.numOfImg === 0) {
+      this.expandingImgOnbtn(1);
+      this.downSizeImg(1);
+    } else {
+      this.expandingImgOnbtn(this.numOfImg);
+    }
 
+    // console.log(this.numOfImg);
     this.downProgressionBar(this.numOfImg);
+    this.activateMainTextContent(this.numOfImg);
 
     return this.numOfImg;
   }
@@ -380,8 +492,6 @@ class Cat {
   private adjustProgressionBar() {
     this.btnNext.addEventListener("click", this.upProgression.bind(this));
     this.btnPrev.addEventListener("click", this.downProgression.bind(this));
-
-    return this.numOfImg;
   }
 }
 
