@@ -487,7 +487,7 @@ nav ul {
   align-self: center;
   border: none;
   display: inline;
-  width: 20%;
+  width: 40%;
   text-align: center;
 }
 
@@ -1110,5 +1110,14 @@ nav ul {
 
   .section-hall-of-flame {
     right: -14.5%;
+  }
+
+  .regis-submit-btn {
+    font-size: 1.6rem;
+    width: 80%;
+  }
+
+  .card-header-text {
+    font-size: 2rem;
   }
 }
