@@ -59,7 +59,7 @@ body {
   position: fixed;
   top: -10rem;
   left: -10rem;
-  z-index: 4;
+  z-index: 5;
 }
 
 .circle {
@@ -323,7 +323,7 @@ body {
   gap: 2.4rem;
   transform: translateX(-200%);
   transition: transform 0.4s ease-in;
-  z-index: 4;
+  z-index: 5;
 }
 
 .section-navigator.show-nav {
@@ -569,7 +569,8 @@ nav ul {
 .footer-container {
   position: fixed;
   bottom: 0;
-  left: 42.5rem;
+  /* left: 42.5rem; */
+  left: 30.5%;
   height: 30%;
   width: 50%;
 
@@ -658,9 +659,9 @@ nav ul {
 /* section-hall of flame */
 
 .section-hall-of-flame {
-  position: absolute;
+  position: fixed;
   top: 0;
-  right: 0;
+  right: -15%;
   background: linear-gradient(to bottom right, #f59e0b, #d97706);
   height: 130rem;
   width: 15%;
@@ -671,14 +672,12 @@ nav ul {
   align-items: center;
   gap: 2rem;
 
-  /* normal */
-  transform: translateX(25rem);
   transition: all 0.4s ease;
 }
 
 .section-hall-of-flame.active {
-  transform: translateX(0);
   transition: all 0.4s ease;
+  right: 0;
 }
 
 .card-container {
@@ -704,6 +703,10 @@ nav ul {
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+.card-header-text {
+  font-size: 1.8rem;
+}
+
 .card-header-emoji {
   font-size: 3rem;
 }
@@ -711,11 +714,14 @@ nav ul {
 .card-container ul {
   list-style: none;
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   justify-content: space-between;
 }
 
 .card-container ul li {
+  display: flex;
+  align-items: center;
   font-size: 2.2rem;
   color: var(--amber-color11);
 }
@@ -727,7 +733,7 @@ nav ul {
 
 .card-text {
   font-size: 1.4rem;
-  margin-left: 0.3rem;
+  margin-left: 1rem;
 }
 
 .hall-of-flame-btn {
@@ -742,7 +748,7 @@ nav ul {
   background: linear-gradient(45deg, #78350f, #451a03);
   color: var(--amber-color2);
   cursor: pointer;
-  position: fixed;
+  position: absolute;
   left: -2rem;
   top: 50%;
 
@@ -773,4 +779,293 @@ nav ul {
 
 .copy-right {
   font-size: 2.5rem;
+}
+
+/* ///////////////////////////////////////////////////////////////////*/
+/* Responsive design */
+
+@media (max-width: 1533px) {
+  .section-hall-of-flame {
+    width: 13%;
+    right: -13%;
+  }
+
+  .card-header-text {
+    visibility: hidden;
+  }
+  .card-header-text::after {
+    content: "🏛️ Sign up!";
+    display: block;
+    visibility: visible;
+    position: absolute;
+    top: 10%;
+    transform: translate(5%, -50%);
+  }
+
+  .card-container ul {
+    flex-direction: column;
+  }
+
+  .author {
+    font-size: 1.3rem;
+  }
+
+  .copy-right {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  .heading {
+    font-size: 5.3rem;
+  }
+
+  .circle-container {
+    top: -8rem;
+    left: -8rem;
+  }
+
+  .circle {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  .btn-open,
+  .btn-close {
+    top: 45%;
+  }
+
+  .img {
+    height: 45vh;
+  }
+  .card-header {
+    box-shadow: none;
+  }
+
+  .section-hall-of-flame.active {
+    width: 100%;
+    right: 0;
+    z-index: 5;
+    background: none;
+    background-color: rgba(120, 53, 15, 0.8);
+  }
+
+  .card-header-text {
+    visibility: visible;
+  }
+  .card-header-text::after {
+    content: "";
+  }
+
+  .card-container {
+    width: 50%;
+    align-self: center;
+  }
+
+  .card-header-text {
+    font-size: 3.2rem;
+  }
+
+  .card-container ul li {
+    font-size: 5rem;
+    color: var(--amber-color11);
+  }
+
+  .card-text {
+    font-size: 2.5rem;
+    margin-left: 3rem;
+  }
+
+  .hall-of-flame-btn {
+    background: linear-gradient(
+      45deg,
+      var(--amber-color6),
+      var(--amber-color7)
+    );
+    color: var(--amber-color11);
+  }
+
+  .author {
+    font-size: 2rem;
+  }
+
+  .copy-right {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heading {
+    font-size: 4.8rem;
+  }
+
+  .nav-icon {
+    font-size: 3.6rem;
+  }
+  .li-text {
+    font-size: 3.2rem;
+  }
+
+  .footer-container {
+    position: fixed;
+    bottom: 50%;
+    right: 50%;
+    transform: translate(0%, 50%);
+  }
+
+  .contact-text {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .heading {
+    font-size: 3.6rem;
+  }
+
+  .heading-text {
+    font-size: 1.6rem;
+  }
+
+  .main-text-header {
+    font-size: 2.2rem;
+  }
+
+  .main-text {
+    font-size: 1.6rem;
+  }
+
+  .main-text-sub-header {
+    font-size: 2rem;
+  }
+
+  .img {
+    height: 35vh;
+  }
+
+  .card-header-text {
+    font-size: 2.8rem;
+  }
+
+  .card-container ul li {
+    font-size: 4rem;
+    color: var(--amber-color11);
+  }
+
+  .card-text {
+    font-size: 2rem;
+    margin-left: 2rem;
+  }
+
+  .author {
+    font-size: 1.7rem;
+  }
+
+  .copy-right {
+    font-size: 2rem;
+  }
+
+  .form-container {
+    padding: 3rem 3.5rem;
+  }
+
+  .form-container h1 {
+    font-size: 3.6rem;
+  }
+
+  .form-container label {
+    font-size: 2.5rem;
+  }
+
+  .form-container input {
+    font-size: 1.6rem;
+  }
+
+  .form-container textarea {
+    font-size: 1.6rem;
+  }
+
+  .contact-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    /* height: 140rem; */
+    height: 100%;
+  }
+  .content {
+    height: 140rem;
+  }
+
+  .circle-container {
+    top: -6rem;
+    left: -6rem;
+  }
+
+  .circle {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .btn-open,
+  .btn-close {
+    font-size: 4rem;
+    top: 32%;
+  }
+
+  .heading {
+    font-size: 3rem;
+  }
+
+  .heading-text {
+    font-size: 1.8rem;
+  }
+
+  .main-text-header {
+    font-size: 2.4 rem;
+  }
+
+  .main-text {
+    font-size: 1.8rem;
+  }
+
+  .main-text-sub-header {
+    font-size: 2rem;
+  }
+
+  .form-container h1 {
+    font-size: 2.5rem;
+  }
+
+  .form-container label {
+    font-size: 2rem;
+  }
+
+  .form-container input {
+    font-size: 1.2rem;
+  }
+
+  .form-container textarea {
+    font-size: 1.2rem;
+  }
+
+  .regis-submit-btn {
+    font-size: 1.6rem;
+    width: 60%;
+  }
+
+  .img {
+    height: 45vh;
+  }
+
+  .footer-container {
+    width: 60%;
+    left: 23.5%;
+  }
+
+  .contact-text {
+    font-size: 0.8rem;
+  }
 }

@@ -177,7 +177,7 @@ var Cat = /** @class */ (function () {
         this.cardInsertEl.innerHTML = "";
         if (this.userProjects) {
             this.userProjects.forEach(function (user) {
-                var html = "\n        <div class=\"card-container\">\n      <ul>\n            <li class=\"card-user-name\">\n              <ion-icon name=\"logo-octocat\"></ion-icon>\n              <span class=\"card-text\">".concat(user.userName, "</span>\n            </li>\n            <li class=\"card-rate\">\n              <ion-icon name=\"star-half-outline\"></ion-icon>\n              <span class=\"card-text\">").concat(user.rate, "</span>\n            </li>\n          </ul>\n          <div class=\"card-description\">\n            <ion-icon name=\"chatbubble-ellipses-outline\"></ion-icon\n            ><span class=\"card-text\">").concat(user.description, "</span>\n          </div>\n        </div>\n      ");
+                var html = "\n        <div class=\"card-container\">\n      <ul>\n            <li class=\"card-user-name\">\n              <ion-icon name=\"logo-octocat\"></ion-icon>\n              <span class=\"card-text\">".concat(user.userName, "</span>\n            </li>\n            <li class=\"card-rate\">\n              <ion-icon name=\"star-half-outline\"></ion-icon>\n              <span class=\"card-text\">").concat(user.rate, "</span>\n            </li>\n            <li class=\"card-description\">\n            <ion-icon name=\"chatbubble-ellipses-outline\"></ion-icon\n            ><span class=\"card-text\">").concat(user.description, "</span>\n          </li>\n          </ul>\n          \n        </div>\n      ");
                 _this.cardInsertEl.insertAdjacentHTML("beforeend", html);
             });
         }

@@ -293,11 +293,12 @@ class Cat {
               <ion-icon name="star-half-outline"></ion-icon>
               <span class="card-text">${user.rate}</span>
             </li>
-          </ul>
-          <div class="card-description">
+            <li class="card-description">
             <ion-icon name="chatbubble-ellipses-outline"></ion-icon
             ><span class="card-text">${user.description}</span>
-          </div>
+          </li>
+          </ul>
+          
         </div>
       `;
 
