@@ -297,9 +297,10 @@ class Cat {
             <ion-icon name="chatbubble-ellipses-outline"></ion-icon
             ><span class="card-text">${user.description}</span>
           </li>
-          </ul>
+        </ul>
           
         </div>
+        <p class="author"><span class="copy-right">&copy; </span> Kla Manjit</p>
       `;
 
         this.cardInsertEl.insertAdjacentHTML("beforeend", html);
