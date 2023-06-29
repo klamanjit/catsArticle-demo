@@ -44,6 +44,7 @@ var Cat = /** @class */ (function () {
         this.activateSubmitBtn();
         // activate hall of flame
         this.toggleHallOfFlameOnBtn();
+        this.activateShowDetailsBtn();
         // activate imgs expandion
         // this.expandingImgOnclick();
         //Progression bar
@@ -136,6 +137,58 @@ var Cat = /** @class */ (function () {
         }
         return isValid;
     };
+    // Post userInfo data to server
+    Cat.prototype.postUserInfoToServer = function (userInfo) {
+        fetch("https://cat-article-default-rtdb.asia-southeast1.firebasedatabase.app/userInfo.json", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: userInfo.userName,
+                rate: userInfo.rate,
+                description: userInfo.description,
+            }),
+        })
+            .then(function (res) {
+            if (res) {
+                return;
+            }
+            else {
+                throw new Error("Could not post the data, Try again later.");
+            }
+        })
+            .catch(function (err) {
+            alert("".concat(err.message));
+        });
+    };
+    // Get userInfo from server
+    Cat.prototype.getUserInfoFromServer = function () {
+        var _this = this;
+        fetch("https://cat-article-default-rtdb.asia-southeast1.firebasedatabase.app/userInfo.json")
+            .then(function (res) {
+            if (res)
+                return res.json();
+            else {
+                throw new Error("Could not get data from the server, try again later.");
+            }
+        })
+            .then(function (data) {
+            console.log(data);
+            var userInfos = [];
+            for (var id in data) {
+                userInfos.push({
+                    userName: data[id].name,
+                    rate: data[id].rate,
+                    description: data[id].description,
+                });
+            }
+            _this.userProjects = userInfos;
+            console.log(_this.userProjects, userInfos);
+            // try
+            _this.showCardInsert();
+        });
+    };
     Cat.prototype.gatherRegisterInfo = function () {
         var usernameInfo = this.usernameEl.value;
         var rateInfo = +this.rateEl.value;
@@ -163,12 +216,15 @@ var Cat = /** @class */ (function () {
                 rate: rateInfo,
                 description: descriptionInfo,
             };
+            // Post userInfo data to server
+            this.postUserInfoToServer(userInfo);
             console.log(userInfo);
-            this.userProjects.push(userInfo);
-            return userInfo;
+            // No need to push this again
+            // this.userProjects.push(userInfo);
+            // return userInfo;
         }
         else {
-            // alert(`The inputs is not valid, Please try again 😅`);
+            alert("The inputs is not valid, Please try again \uD83D\uDE05");
             this.clearRegisInputs();
         }
     };
@@ -188,15 +244,20 @@ var Cat = /** @class */ (function () {
             .querySelector(".regis-submit-btn")
             .addEventListener("click", function (e) {
             e.preventDefault();
-            if (_this.gatherRegisterInfo()) {
-                _this.clearRegisInputs();
-                _this.closeRegisterSection();
-                _this.toogleHallOFFlame();
-                _this.showCardInsert();
-            }
-            else {
-                alert("Please check the inputs!");
-            }
+            _this.gatherRegisterInfo();
+            _this.clearRegisInputs();
+            _this.closeRegisterSection();
+            _this.toogleHallOFFlame();
+            _this.showCardInsert();
+        });
+    };
+    Cat.prototype.activateShowDetailsBtn = function () {
+        var _this = this;
+        document
+            .querySelector(".show-infos-btn")
+            .addEventListener("click", function (e) {
+            e.preventDefault();
+            _this.getUserInfoFromServer();
         });
     };
     Cat.prototype.toogleHallOFFlame = function () {

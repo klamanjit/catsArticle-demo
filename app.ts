@@ -7,7 +7,7 @@ interface Validable {
 }
 
 interface UserInfo {
-  userName: string;
+  userName: string | null;
   rate: number;
   description: string;
 }
@@ -120,6 +120,7 @@ class Cat {
     this.activateSubmitBtn();
     // activate hall of flame
     this.toggleHallOfFlameOnBtn();
+    this.activateShowDetailsBtn();
 
     // activate imgs expandion
     // this.expandingImgOnclick();
@@ -236,6 +237,65 @@ class Cat {
     return isValid;
   }
 
+  // Post userInfo data to server
+  private postUserInfoToServer(userInfo: UserInfo) {
+    fetch(
+      `https://cat-article-default-rtdb.asia-southeast1.firebasedatabase.app/userInfo.json`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: userInfo.userName,
+          rate: userInfo.rate,
+          description: userInfo.description,
+        }),
+      }
+    )
+      .then((res) => {
+        if (res) {
+          return;
+        } else {
+          throw new Error(`Could not post the data, Try again later.`);
+        }
+      })
+      .catch((err) => {
+        alert(`${err.message}`);
+      });
+  }
+
+  // Get userInfo from server
+  private getUserInfoFromServer() {
+    fetch(
+      `https://cat-article-default-rtdb.asia-southeast1.firebasedatabase.app/userInfo.json`
+    )
+      .then((res) => {
+        if (res) return res.json();
+        else {
+          throw new Error(
+            `Could not get data from the server, try again later.`
+          );
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        const userInfos: UserInfo[] = [];
+        for (const id in data) {
+          userInfos.push({
+            userName: data[id].name,
+            rate: data[id].rate,
+            description: data[id].description,
+          });
+        }
+        this.userProjects = userInfos;
+        console.log(this.userProjects, userInfos);
+
+        // try
+        this.showCardInsert();
+      });
+  }
+
   private gatherRegisterInfo(): UserInfo | any {
     const usernameInfo = this.usernameEl.value;
     const rateInfo = +this.rateEl.value;
@@ -269,11 +329,16 @@ class Cat {
         rate: rateInfo,
         description: descriptionInfo,
       };
+
+      // Post userInfo data to server
+      this.postUserInfoToServer(userInfo);
+
       console.log(userInfo);
-      this.userProjects.push(userInfo);
-      return userInfo;
+      // No need to push this again
+      // this.userProjects.push(userInfo);
+      // return userInfo;
     } else {
-      // alert(`The inputs is not valid, Please try again 😅`);
+      alert(`The inputs is not valid, Please try again 😅`);
       this.clearRegisInputs();
     }
   }
@@ -313,15 +378,24 @@ class Cat {
       .querySelector(".regis-submit-btn")!
       .addEventListener("click", (e: Event) => {
         e.preventDefault();
-        if (this.gatherRegisterInfo()) {
-          this.clearRegisInputs();
-          this.closeRegisterSection();
-          this.toogleHallOFFlame();
+        this.gatherRegisterInfo();
+        this.clearRegisInputs();
 
-          this.showCardInsert();
-        } else {
-          alert(`Please check the inputs!`);
-        }
+        this.closeRegisterSection();
+
+        this.toogleHallOFFlame();
+
+        this.showCardInsert();
+      });
+  }
+
+  private activateShowDetailsBtn() {
+    document
+      .querySelector(".show-infos-btn")!
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+
+        this.getUserInfoFromServer();
       });
   }
 
