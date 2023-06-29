@@ -668,7 +668,7 @@ nav ul {
   top: 0;
   right: -15%;
   background: linear-gradient(to bottom right, #f59e0b, #d97706);
-  height: 130rem;
+  height: 100%;
   width: 15%;
   padding: 3rem;
 
@@ -714,6 +714,24 @@ nav ul {
 
 .card-header-emoji {
   font-size: 3rem;
+}
+
+.show-infos-btn,
+.hide-infos-btn {
+  font: inherit;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  padding: 1rem 1.7rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(45deg, #fbbf24, #f59e0b);
+  color: var(--amber-color11);
+}
+
+.show-infos-btn:hover,
+.hide-infos-btn:hover {
+  background: linear-gradient(45deg, #fef3c7, #fde68a);
 }
 
 .card-container ul {
@@ -769,7 +787,7 @@ nav ul {
   flex-direction: column;
   gap: 2rem;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: overlay;
 }
 
 .author {
@@ -797,6 +815,9 @@ nav ul {
     width: 13%;
     right: -13%;
   }
+  .card-header {
+    width: 100%;
+  }
 
   .card-header-text {
     visibility: hidden;
@@ -820,6 +841,18 @@ nav ul {
 
   .copy-right {
     font-size: 2rem;
+  }
+
+  #btns-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 1rem;
+  }
+
+  #btns-details-container button {
+    width: 80%;
   }
 }
 
@@ -848,6 +881,7 @@ nav ul {
   }
   .card-header {
     box-shadow: none;
+    width: 50%;
   }
 
   .section-hall-of-flame.active {
@@ -900,6 +934,18 @@ nav ul {
   .copy-right {
     font-size: 2.3rem;
   }
+
+  #btns-details-container {
+    display: flex;
+
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 1rem;
+  }
+
+  #btns-details-container button {
+    width: 30%;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -928,6 +974,10 @@ nav ul {
 
   .contact-text {
     font-size: 1.4rem;
+  }
+
+  #btns-details-container button {
+    width: 35%;
   }
 }
 
@@ -1071,12 +1121,20 @@ nav ul {
   }
 
   .img {
-    height: 45vh;
+    height: 28vh;
+  }
+
+  .progress-container {
+    display: none;
   }
 
   .footer-container {
     width: 60%;
     left: 23.5%;
+  }
+
+  .card-header {
+    width: 60%;
   }
 
   .contact-text {
@@ -1086,6 +1144,18 @@ nav ul {
   .card-container {
     width: 70%;
     align-self: center;
+  }
+
+  #btns-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 1rem;
+  }
+
+  #btns-details-container button {
+    width: 50%;
   }
 }
 
@@ -1101,6 +1171,10 @@ nav ul {
     text-indent: 10%;
   }
 
+  .img {
+    height: 23vh;
+  }
+
   .main-text {
     margin-top: 2rem;
     font-size: 1.4rem;
@@ -1114,10 +1188,6 @@ nav ul {
 
   .main-text-sub-header {
     font-size: 1.8rem;
-  }
-
-  .progress-container {
-    display: none;
   }
 
   .form-container h1 {

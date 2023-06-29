@@ -1,11 +1,9 @@
-function Autobind(_, _2, descriptor) {
-    // const orinalMethod = descriptor.value;
-    console.log(descriptor);
-}
 var Cat = /** @class */ (function () {
     function Cat() {
         this.userProjects = [];
         this.numOfImg = 0;
+        // check valid User info
+        this.isInfoValid = true;
         // selection properties
         this.btnOpenNav = document.querySelector(".btn-open");
         this.btnCloseNav = document.querySelector(".btn-close");
@@ -45,6 +43,7 @@ var Cat = /** @class */ (function () {
         // activate hall of flame
         this.toggleHallOfFlameOnBtn();
         this.activateShowDetailsBtn();
+        this.hideDetailBtn();
         // activate imgs expandion
         // this.expandingImgOnclick();
         //Progression bar
@@ -129,6 +128,10 @@ var Cat = /** @class */ (function () {
             typeof validateObj.value === "string") {
             isValid = isValid && validateObj.value.length >= validateObj.minLength;
         }
+        if (validateObj.maxLength != null &&
+            typeof validateObj.value === "string") {
+            isValid = isValid && validateObj.value.length <= validateObj.maxLength;
+        }
         if (validateObj.min != null && typeof validateObj.value === "number") {
             isValid = isValid && validateObj.value >= validateObj.min;
         }
@@ -159,7 +162,7 @@ var Cat = /** @class */ (function () {
             }
         })
             .catch(function (err) {
-            alert("".concat(err.message));
+            alert("".concat(err.message, ": Please try again later \uD83D\uDE3F"));
         });
     };
     // Get userInfo from server
@@ -177,7 +180,7 @@ var Cat = /** @class */ (function () {
             console.log(data);
             var userInfos = [];
             for (var id in data) {
-                userInfos.push({
+                userInfos.unshift({
                     userName: data[id].name,
                     rate: data[id].rate,
                     description: data[id].description,
@@ -187,6 +190,9 @@ var Cat = /** @class */ (function () {
             console.log(_this.userProjects, userInfos);
             // try
             _this.showCardInsert();
+        })
+            .catch(function (err) {
+            alert("".concat(err.message, ": Please try again later \uD83D\uDE3F"));
         });
     };
     Cat.prototype.gatherRegisterInfo = function () {
@@ -206,7 +212,8 @@ var Cat = /** @class */ (function () {
         var validDescription = {
             value: descriptionInfo,
             required: true,
-            minLength: 5,
+            maxLength: 12,
+            minLength: 0,
         };
         if (this.isValided(validedUserNane) &&
             this.isValided(validRate) &&
@@ -224,8 +231,10 @@ var Cat = /** @class */ (function () {
             // return userInfo;
         }
         else {
-            alert("The inputs is not valid, Please try again \uD83D\uDE05");
+            this.isInfoValid = false;
+            alert("The inputs is not valid, please make sure that the following are corrected: \n      \n User name: not empthy\n rating: not more than 10\n description: 0-12 characters including space\n \uD83D\uDE18 \uD83D\uDE18 \uD83D\uDE18 \uD83D\uDE18 ");
             this.clearRegisInputs();
+            return;
         }
     };
     Cat.prototype.showCardInsert = function () {
@@ -244,11 +253,17 @@ var Cat = /** @class */ (function () {
             .querySelector(".regis-submit-btn")
             .addEventListener("click", function (e) {
             e.preventDefault();
+            _this.isInfoValid = true;
             _this.gatherRegisterInfo();
-            _this.clearRegisInputs();
-            _this.closeRegisterSection();
-            _this.toogleHallOFFlame();
-            _this.showCardInsert();
+            if (_this.isInfoValid === true) {
+                _this.clearRegisInputs();
+                _this.closeRegisterSection();
+                _this.toogleHallOFFlame();
+                _this.showCardInsert();
+            }
+            else {
+                return;
+            }
         });
     };
     Cat.prototype.activateShowDetailsBtn = function () {
@@ -257,7 +272,14 @@ var Cat = /** @class */ (function () {
             .querySelector(".show-infos-btn")
             .addEventListener("click", function (e) {
             e.preventDefault();
+            _this.cardInsertEl.style.display = "flex";
             _this.getUserInfoFromServer();
+        });
+    };
+    Cat.prototype.hideDetailBtn = function () {
+        var _this = this;
+        document.querySelector(".hide-infos-btn").addEventListener("click", function () {
+            _this.cardInsertEl.style.display = "none";
         });
     };
     Cat.prototype.toogleHallOFFlame = function () {

@@ -2,19 +2,15 @@ interface Validable {
   value: string | number;
   required: boolean;
   minLength?: number;
+  maxLength?: number;
   min?: number;
   max?: number;
 }
 
 interface UserInfo {
-  userName: string | null;
+  userName: string;
   rate: number;
   description: string;
-}
-
-function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
-  // const orinalMethod = descriptor.value;
-  console.log(descriptor);
 }
 
 class Cat {
@@ -51,6 +47,8 @@ class Cat {
   mainTextEls: NodeListOf<Element>;
 
   numOfImg: number = 0;
+  // check valid User info
+  isInfoValid: boolean = true;
 
   constructor() {
     // selection properties
@@ -121,6 +119,7 @@ class Cat {
     // activate hall of flame
     this.toggleHallOfFlameOnBtn();
     this.activateShowDetailsBtn();
+    this.hideDetailBtn();
 
     // activate imgs expandion
     // this.expandingImgOnclick();
@@ -226,6 +225,13 @@ class Cat {
       isValid = isValid && validateObj.value.length >= validateObj.minLength;
     }
 
+    if (
+      validateObj.maxLength != null &&
+      typeof validateObj.value === "string"
+    ) {
+      isValid = isValid && validateObj.value.length <= validateObj.maxLength;
+    }
+
     if (validateObj.min != null && typeof validateObj.value === "number") {
       isValid = isValid && validateObj.value >= validateObj.min;
     }
@@ -261,7 +267,7 @@ class Cat {
         }
       })
       .catch((err) => {
-        alert(`${err.message}`);
+        alert(`${err.message}: Please try again later 😿`);
       });
   }
 
@@ -282,7 +288,7 @@ class Cat {
         console.log(data);
         const userInfos: UserInfo[] = [];
         for (const id in data) {
-          userInfos.push({
+          userInfos.unshift({
             userName: data[id].name,
             rate: data[id].rate,
             description: data[id].description,
@@ -293,6 +299,9 @@ class Cat {
 
         // try
         this.showCardInsert();
+      })
+      .catch((err) => {
+        alert(`${err.message}: Please try again later 😿`);
       });
   }
 
@@ -316,7 +325,8 @@ class Cat {
     const validDescription: Validable = {
       value: descriptionInfo,
       required: true,
-      minLength: 5,
+      maxLength: 12,
+      minLength: 0,
     };
 
     if (
@@ -338,8 +348,11 @@ class Cat {
       // this.userProjects.push(userInfo);
       // return userInfo;
     } else {
-      alert(`The inputs is not valid, Please try again 😅`);
+      this.isInfoValid = false;
+      alert(`The inputs is not valid, please make sure that the following are corrected: 
+      \n User name: not empthy\n rating: not more than 10\n description: 0-12 characters including space\n 😘 😘 😘 😘 `);
       this.clearRegisInputs();
+      return;
     }
   }
 
@@ -378,14 +391,20 @@ class Cat {
       .querySelector(".regis-submit-btn")!
       .addEventListener("click", (e: Event) => {
         e.preventDefault();
+        this.isInfoValid = true;
+
         this.gatherRegisterInfo();
-        this.clearRegisInputs();
+        if (this.isInfoValid === true) {
+          this.clearRegisInputs();
 
-        this.closeRegisterSection();
+          this.closeRegisterSection();
 
-        this.toogleHallOFFlame();
+          this.toogleHallOFFlame();
 
-        this.showCardInsert();
+          this.showCardInsert();
+        } else {
+          return;
+        }
       });
   }
 
@@ -394,9 +413,16 @@ class Cat {
       .querySelector(".show-infos-btn")!
       .addEventListener("click", (e) => {
         e.preventDefault();
+        this.cardInsertEl.style.display = "flex";
 
         this.getUserInfoFromServer();
       });
+  }
+
+  private hideDetailBtn() {
+    document.querySelector(".hide-infos-btn")!.addEventListener("click", () => {
+      this.cardInsertEl.style.display = "none";
+    });
   }
 
   private toogleHallOFFlame() {
