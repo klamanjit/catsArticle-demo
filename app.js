@@ -225,6 +225,7 @@ var Cat = /** @class */ (function () {
             };
             // Post userInfo data to server
             this.postUserInfoToServer(userInfo);
+            alert("Thank you for signing up! Let's dive into your 'Cat Guardian' profile and explore your feline adventures! Meow! \uD83D\uDE3B");
             console.log(userInfo);
             // No need to push this again
             // this.userProjects.push(userInfo);
@@ -232,7 +233,7 @@ var Cat = /** @class */ (function () {
         }
         else {
             this.isInfoValid = false;
-            alert("Oopsie-daisy! Something seems to be amiss with the inputs you provided. Could you double-check and make sure they're correct? We want to make sure everything is in order. Thanks! \n      \n Your Kitty Alias!: not empthy\n Rate the cat cuteness level!: not more than 10\n Express your feelings!: 0-12 characters including space\n \uD83D\uDE18 \uD83D\uDE18 \uD83D\uDE18 \uD83D\uDE18 ");
+            alert("Oopsie-daisy! Something seems to be amiss with the inputs you provided. Could you double-check and make sure they're correct? We want to make sure everything is in order. Thanks! \n      \n Your Kitty Alias!: not empthy\n Rate the cat cuteness level!: <= 10\n Express your feelings!: 0-12 characters including space\n \uD83D\uDE3C \uD83D\uDE3C \uD83D\uDE3C \uD83D\uDE3C ");
             this.clearRegisInputs();
             return;
         }
