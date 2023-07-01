@@ -349,8 +349,8 @@ class Cat {
       // return userInfo;
     } else {
       this.isInfoValid = false;
-      alert(`The inputs is not valid, please make sure that the following are corrected: 
-      \n User name: not empthy\n rating: not more than 10\n description: 0-12 characters including space\n 😘 😘 😘 😘 `);
+      alert(`Oopsie-daisy! Something seems to be amiss with the inputs you provided. Could you double-check and make sure they're correct? We want to make sure everything is in order. Thanks! 
+      \n Your Kitty Alias!: not empthy\n Rate the cat cuteness level!: not more than 10\n Express your feelings!: 0-12 characters including space\n 😘 😘 😘 😘 `);
       this.clearRegisInputs();
       return;
     }

@@ -232,7 +232,7 @@ var Cat = /** @class */ (function () {
         }
         else {
             this.isInfoValid = false;
-            alert("The inputs is not valid, please make sure that the following are corrected: \n      \n User name: not empthy\n rating: not more than 10\n description: 0-12 characters including space\n \uD83D\uDE18 \uD83D\uDE18 \uD83D\uDE18 \uD83D\uDE18 ");
+            alert("Oopsie-daisy! Something seems to be amiss with the inputs you provided. Could you double-check and make sure they're correct? We want to make sure everything is in order. Thanks! \n      \n Your Kitty Alias!: not empthy\n Rate the cat cuteness level!: not more than 10\n Express your feelings!: 0-12 characters including space\n \uD83D\uDE18 \uD83D\uDE18 \uD83D\uDE18 \uD83D\uDE18 ");
             this.clearRegisInputs();
             return;
         }

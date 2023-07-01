@@ -296,6 +296,8 @@ body {
 }
 #main-text-0 {
   text-align: center;
+  line-height: 4rem;
+  color: #451a03;
 }
 
 .main-text-header {
@@ -807,6 +809,18 @@ nav ul {
   font-size: 2.5rem;
 }
 
+#btns-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+#btns-details-container button {
+  width: 80%;
+}
+
 /* ///////////////////////////////////////////////////////////////////*/
 /* Responsive design */
 
@@ -1118,6 +1132,7 @@ nav ul {
   .regis-submit-btn {
     font-size: 1.6rem;
     width: 60%;
+    margin-top: 3rem;
   }
 
   .img {
@@ -1157,6 +1172,10 @@ nav ul {
   #btns-details-container button {
     width: 50%;
   }
+
+  .section-navigator {
+    left: 3rem;
+  }
 }
 
 @media (max-width: 440px) {
@@ -1191,33 +1210,20 @@ nav ul {
   }
 
   .form-container h1 {
-    font-size: 1.8rem;
+    font-size: 2.1rem;
   }
 
   .form-container label {
-    font-size: 1.6rem;
-  }
-
-  .form-container input {
-    font-size: 0.8rem;
-  }
-
-  .form-container textarea {
-    font-size: 0.8rem;
+    font-size: 1.8rem;
   }
 
   .regis-submit-btn {
-    font-size: 1rem;
+    font-size: 1.4rem;
     width: 60%;
   }
 
   .section-hall-of-flame {
     right: -16.5%;
-  }
-
-  .regis-submit-btn {
-    font-size: 1.6rem;
-    width: 90%;
   }
 
   .card-header-text {
